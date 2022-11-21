@@ -1,0 +1,14 @@
+[wait time=20]
+*start|スタート
+[cm]
+@cm
+ここがスタートです[l][r]
+
+*label2|セーブ場所2
+[cm]
+ここはセーブ場所２[l][r]
+
+*label3|セーブ場所3
+[cm]
+ここはセーブ場所３[l][r]
+[jump target=*start]
