@@ -1,7 +1,7 @@
 extends Node2D
 
 # 吉里吉里のタグコマンド.
-class KzTag:
+class KAGTag:
 	var name:String = ""
 	var attrs = []
 	func _init(_name:String, _attrs):
@@ -16,7 +16,7 @@ class KzTag:
 		return ret
 
 # 吉里吉里のタグの属性.
-class KzAttr:
+class KAGAttr:
 	var name:String = ""
 	var value:String = ""
 	func _init(_name:String, _value:String):
@@ -26,7 +26,7 @@ class KzAttr:
 		return "%s=%s"%[name, value]
 		
 # 吉里吉里のメッセージ
-class KzMsg:
+class KAGMsg:
 	var msg:String = ""
 	var is_click:bool = false # クリック待ちするかどうか.
 	var is_ctrl:bool = false # 改行するかどうか.
@@ -49,7 +49,7 @@ class KzMsg:
 		return ret
 
 # 吉里吉里のラベル.
-class KzLabel:
+class KAGLabel:
 	var name:String = ""
 	var comment:String = ""
 	func _init(_name:String, _comment:String):
@@ -92,7 +92,7 @@ func _parse(txt:String) -> void:
 		print("#MSG  # ", msg)
 
 ## タグの解析.
-func _parse_tag(txt:String) -> KzTag:
+func _parse_tag(txt:String) -> KAGTag:
 	var regex = RegEx.new()
 	regex.compile("^\\[(?<tag>[a-z]+)[ ]?(?<attrs>.+)*\\]")
 	var result = regex.search(txt)
@@ -112,14 +112,14 @@ func _parse_tag(txt:String) -> KzTag:
 		var arr = attrs_result.split(" ")
 		for a in arr:
 			var d = a.split("=")
-			var attr = KzAttr.new(d[0], d[1])
+			var attr = KAGAttr.new(d[0], d[1])
 			attrs.append(attr)
 		
-	var kz = KzTag.new(name, attrs)
-	return kz
+	var kag = KAGTag.new(name, attrs)
+	return kag
 
 ## ラベルの解析.
-func _parse_label(txt:String) -> KzLabel:
+func _parse_label(txt:String) -> KAGLabel:
 	var regex = RegEx.new()
 	regex.compile("^\\*(?<label>[\\D][\\w]*)[|]?(?<comment>.+)*")
 	var result = regex.search(txt)
@@ -131,11 +131,11 @@ func _parse_label(txt:String) -> KzLabel:
 	var comment_result = result.get_string("comment")
 	if comment_result:
 		comment = comment_result
-	var kz = KzLabel.new(label, comment)
-	return kz
+	var kag = KAGLabel.new(label, comment)
+	return kag
 
 ## メッセージお解析.
-func _parse_msg(txt:String) -> KzMsg:
+func _parse_msg(txt:String) -> KAGMsg:
 	var msg = txt
 	var is_click = txt.find("[l]") >= 0
 	var is_ctrl = txt.find("[r]") >= 0
@@ -148,6 +148,6 @@ func _parse_msg(txt:String) -> KzMsg:
 	msg = msg.replace("[l]", "")
 	msg = msg.replace("[r]", "")
 	msg = msg.replace("[p]", "")
-	var kz = KzMsg.new(msg, is_click, is_ctrl, is_pf)
+	var kag = KAGMsg.new(msg, is_click, is_ctrl, is_pf)
 	
-	return kz
+	return kag
