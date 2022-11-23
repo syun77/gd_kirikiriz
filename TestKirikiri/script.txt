@@ -1,14 +1,9 @@
-[wait time=20]
-*start|スタート
-[cm]
-@cm
-ここがスタートです[l][r]
+スクリプトを開始します[p]
 
-*label2|セーブ場所2
-[cm]
-ここはセーブ場所２[l][r]
-
-*label3|セーブ場所3
-[cm]
-ここはセーブ場所３[l][r]
-[jump target=*start]
+[image storage="bg001" layer=base]
+背景を表示[l][r]
+[image layer=0 storage="ch001" visible=true left=700 top=20]
+キャラを表示[l][r]
+[image layer=0 visible=false]
+キャラを消去[p]
+おしまい[p]

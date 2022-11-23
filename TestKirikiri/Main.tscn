@@ -1,6 +1,39 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://new_theme.tres" type="Theme" id=2]
+[ext_resource path="res://cursor.png" type="Texture" id=3]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="LayerImage" type="CanvasLayer" parent="."]
+
+[node name="base" type="TextureRect" parent="LayerImage"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="image0" type="TextureRect" parent="LayerImage"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="LayerTalkWindow" type="CanvasLayer" parent="."]
+
+[node name="Window" type="ColorRect" parent="LayerTalkWindow"]
+margin_left = 128.0
+margin_top = 496.0
+margin_right = 1152.0
+margin_bottom = 712.0
+color = Color( 0, 0, 0, 0.670588 )
+
+[node name="Text" type="RichTextLabel" parent="LayerTalkWindow/Window"]
+margin_left = 64.0
+margin_top = 38.0
+margin_right = 960.0
+margin_bottom = 190.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+
+[node name="Cursor" type="Sprite" parent="LayerTalkWindow/Window"]
+position = Vector2( 912, 165 )
+texture = ExtResource( 3 )
