@@ -6,4 +6,7 @@
 キャラを表示[l][r]
 [image layer=0 visible=false]
 キャラを消去[p]
+1秒待ちます[r]
+[wait time=1000]
+@cm
 おしまい[p]
