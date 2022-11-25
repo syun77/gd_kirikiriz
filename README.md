@@ -88,7 +88,7 @@ KAGLabelはラベルの定義で、ラベルジャンプの対象となる名前
 #### _parse_tag(): タグの解析
 タグの解析の関数は以下のコードとなっています。
 
-```
+```gdscript
 ## タグ(+属性)の解析.
 func _parse_tag(txt:String) -> KAGTag:
 	var regex = RegEx.new()
