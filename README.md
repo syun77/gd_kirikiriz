@@ -20,9 +20,9 @@ Main (Node2D)
 ## Main.gd
 Main.gd は大きく分けて以下の3つの処理をしています。
 
-1. KAGTag/KAGAttr/KAGMsg/KAGLabel という KAGスクリプトの命令をオブジェクト化するクラスを定義している
-2. _ready()で "script.txt" を読み込み解析をして KAGオブジェクトを "_cmd_list" にコマンドとして格納している
-3. _process()で "_cmd_list" に格納されたコマンドを順次実行している
+* KAGTag/KAGAttr/KAGMsg/KAGLabel という KAGスクリプトの命令をオブジェクト化するクラスを定義している
+* _ready()で "script.txt" を読み込み解析をして KAGオブジェクトを "_cmd_list" にコマンドとして格納している
+* _process()で "_cmd_list" に格納されたコマンドを順次実行している
 
 ### 各KAGクラスの説明
 #### KAGTagクラス
