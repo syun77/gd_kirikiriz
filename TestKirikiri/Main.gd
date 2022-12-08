@@ -93,17 +93,26 @@ enum eCmdRet {
 	CONTINUE, # 継続する.
 }
 
+# --------------------------------------
+# onready.
+# --------------------------------------
 # 会話ウィンドウテキスト.
 onready var _text = $LayerTalkWindow/Window/Text
 # 会話ウィンドウカーソル.
 onready var _cursor = $LayerTalkWindow/Window/Cursor
+# デバッグログ.
+onready var _dbg_log = $LayerDbg/DbgLog
 
+# --------------------------------------
+# vars.
+# --------------------------------------
 # コマンドリスト.
 var _timer = 0.0
 var _state = eState.EXEC_SCRIPT
 var _cmd_idx = 0 # コマンド実行カウンタ.
 var _cmd_list = [] # コマンドリスト.
 var _cmd = null # 現在実行中のコマンド.
+var _script_text = [] # スクリプトのテキスト.
 
 func _ready() -> void:
 	# スクリプトファイルの読み込み
@@ -117,11 +126,6 @@ func _ready() -> void:
 	
 # 更新.
 func _process(delta: float) -> void:
-	# デバッグ用
-	if Input.is_action_just_pressed("ui_cancel"):
-		# リロードする
-		get_tree().change_scene("res://Main.tscn")
-	
 	# スクリプトの更新.
 	match _state:
 		eState.EXEC_SCRIPT: # スクリプト実行中.
@@ -132,6 +136,8 @@ func _process(delta: float) -> void:
 			_time_wait(delta) # 一定時間待つ.
 		eState.END: # 終了.
 			_text.text = "<<スクリプト終了>>"
+	
+	_update_debug()
 # --------------------------------------
 # ここから_stateに対応する処理.
 # --------------------------------------
@@ -299,6 +305,10 @@ func _parse(txt:String) -> void:
 		line = line.strip_edges ()
 		if line == "":
 			continue # 空行は読み飛ばします.
+			
+		# デバッグログ用に保存しておく.
+		_script_text.append(line)
+		
 		#print(line)
 		var tag = _parse_tag(line)
 		if tag:
@@ -381,3 +391,26 @@ func _parse_msg(txt:String) -> KAGMsg:
 	
 	var kag = KAGMsg.new(msg, is_click, is_ctrl, is_pf)
 	return kag
+
+# ----------------------------------------
+# 以下デバッグ用のコード.
+# ----------------------------------------
+func _update_debug() -> void:
+	# デバッグ用
+	if Input.is_action_just_pressed("ui_cancel"):
+		# リロードする
+		get_tree().change_scene("res://Main.tscn")
+
+	# デバッグログ更新.
+	var text = ""
+	for i in range(_script_text.size()):
+			var idx = i + 1 # 1始まり
+			if i != 0:
+				text += "\n"
+			if idx == _cmd_idx:
+				text += "[color=yellow]"
+			text += _script_text[i]
+			if idx == _cmd_idx:
+				text += "[/color]"
+	_dbg_log.scroll_to_line(_cmd_idx - 3)
+	_dbg_log.bbcode_text = text

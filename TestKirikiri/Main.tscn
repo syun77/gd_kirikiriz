@@ -37,3 +37,28 @@ bbcode_enabled = true
 [node name="Cursor" type="Sprite" parent="LayerTalkWindow/Window"]
 position = Vector2( 912, 165 )
 texture = ExtResource( 3 )
+
+[node name="LayerDbg" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="LayerDbg"]
+margin_left = 8.0
+margin_top = 75.0
+margin_right = 757.0
+margin_bottom = 368.0
+color = Color( 0, 0, 0, 0.235294 )
+
+[node name="DbgLog" type="RichTextLabel" parent="LayerDbg"]
+margin_left = 22.0
+margin_top = 81.0
+margin_right = 768.0
+margin_bottom = 360.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "hogehoge
+[color=yellow]piyopiyo[/color]
+momomomo
+"
+text = "hogehoge
+piyopiyo
+momomomo
+"
